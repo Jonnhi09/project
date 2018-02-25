@@ -191,6 +191,7 @@ public class ServiciosAlquilerItemsStub extends ServiciosAlquiler implements Ser
             LocalDate fechaMinimaEntrega=ir.getFechafinrenta().toLocalDate();
             LocalDate fechaEntrega=fechaDevolucion.toLocalDate();
             long diasRetraso = ChronoUnit.DAYS.between(fechaMinimaEntrega, fechaEntrega);
+            if(diasRetraso<0){diasRetraso=0;}
             return diasRetraso*MULTA_DIARIA;
         }
     }

@@ -51,14 +51,10 @@ public class ClientesTest {
     
     
     @Test
-    public void additems1() throws ExcepcionServiciosAlquiler{
-    	
+    public void registrarNuevoClienteCE2() throws ExcepcionServiciosAlquiler{
+        Cliente nuevoCliente = new Cliente();
+        ServiciosAlquilerItemsStub servicio = new ServiciosAlquilerItemsStub();
+        servicio.registrarCliente(nuevoCliente);
+        assertTrue("Se registra un nuevo cliente", servicio.consultarClientes().contains(nuevoCliente));
     }
-    
-    
-    
-    
-    
-    
-    
 }
