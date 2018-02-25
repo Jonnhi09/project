@@ -63,7 +63,7 @@ public abstract class ServiciosAlquiler {
     public abstract List<TipoItem> consultarTiposItem() throws ExcepcionServiciosAlquiler;
 
     /**
-     * @obj registrar el alquiler de un item 2.
+     * @obj registrar el alquiler de un item 1,2.
      * @pre numdias >=1
      * @param date fecha de registro del alquiler
      * @param docu identificación de a quien se le cargara el alquiler
