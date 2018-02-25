@@ -27,23 +27,23 @@ public class ClientesTest {
     }
     /**
      * Clases de quivalencia, resultado
-     * el cliente ya esta registrado, no se registra de nuevo ni se o se pierde unfomacion debe arrojar la excepcion sin modificar.
+     * el cliente ya esta registrado, no se registra de nuevo ni se o se pierde infomacion debe arrojar la excepcion sin modificar.
      * El clinete es nuevo, se debe hacer el registro del cliente.
      * @throws ExcepcionServiciosAlquiler 
      */
     @Test
-    public void registrarCliente() throws ExcepcionServiciosAlquiler{
+    public void registrarCliente() throws ExcepcionServiciosAlquiler{ //Clase de equivalecia 1 ya registrado
         Cliente p = new Cliente();
         ServiciosAlquilerItemsStub serv = new ServiciosAlquilerItemsStub();
         serv.registrarCliente(p);
-        List<Cliente> lc = serv.consultarClientes();
-        boolean b = false;
+        List<Cliente> listaClientes = serv.consultarClientes();
+        boolean exception = false;
         try{
             serv.registrarCliente(p);
         }catch(ExcepcionServiciosAlquiler e){
-            b = true;
+            exception = true;
         }
-        if(!serv.consultarClientes().equals(lc) || b){
+        if(!serv.consultarClientes().equals(listaClientes) || !exception){
             fail("se modificaron datos o no se envia la excepcion adecuada, fallo el caso");
         }
         
