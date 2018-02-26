@@ -7,19 +7,18 @@
     <h:body>
         <h:body>
             <h:form id="form">
-                <p:dataTable var="items" value="#{AlquilerItems.selected.rentados}" id="Titems">
+                <p:dataTable var="items" value="#{AlquilerItems.rentados}" id="Titems">
                     <p:column headerText="Items prestados">
                         <f:facet name="header">
                             <h:outputText value="Items prestados"/>
                         </f:facet>
                         <h:outputText value="#{items.item.nombre}"/>
                     </p:column>
-                    
                     <p:column headerText="Multa">
                         <f:facet name="header">
                             <h:outputText value="Multa"/>
                         </f:facet>
-                        <h:outputText value="#{AlquilerItems.multas}"/>
+                        <h:outputText value=""/>
                     </p:column>
                     <f:facet name="footer">
                     Id Item:

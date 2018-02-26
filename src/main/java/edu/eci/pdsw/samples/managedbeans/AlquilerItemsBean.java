@@ -59,10 +59,6 @@ public class AlquilerItemsBean implements Serializable {
     public void registrarAlquiler() throws ExcepcionServiciosAlquiler{
         sp.registrarAlquilerCliente(Date.valueOf(LocalDate.now()), this.documento, this.item, this.diasAlquiler);
     }
-    
-    public void setItem() throws ExcepcionServiciosAlquiler{
-        this.item=sp.consultarItem(idItem); 
-    }
 
     public Cliente getSelected() {
         return selected;
@@ -112,24 +108,27 @@ public class AlquilerItemsBean implements Serializable {
         this.telefono = telefono;
     }
     
-    public void setSelectedRentados(){
+    /*public void setRentados(){
         this.rentados = this.selected.getRentados();
-    }
+    }*/
     
-    public ArrayList<ItemRentado> getSelectedRentados(){
-        return rentados;
+    public ArrayList<ItemRentado> getRentados(){
+        this.rentados = this.selected.getRentados();
+        return this.rentados;
     }
 
     public ArrayList getMultas() throws ExcepcionServiciosAlquiler {
-        return multas;
-    }
-
-    public void setMultas() throws ExcepcionServiciosAlquiler {
-        setSelectedRentados();
         for(ItemRentado i:this.rentados){
             this.multas.add(sp.consultarMultaAlquiler(i.getItem().getId(), i.getFechafinrenta()));
         }
+        return multas;
     }
+
+    /*public void setMultas() throws ExcepcionServiciosAlquiler {
+        for(ItemRentado i:this.rentados){
+            this.multas.add(sp.consultarMultaAlquiler(i.getItem().getId(), i.getFechafinrenta()));
+        }
+    }*/
     
     public int getIdItem() {
         return idItem;
@@ -152,8 +151,15 @@ public class AlquilerItemsBean implements Serializable {
     }
 
     public void calcularCostoAlquiler() throws ExcepcionServiciosAlquiler {
-        setItem();
         this.costoAlquiler = this.item.getTarifaxDia()*this.diasAlquiler;
+    }
+    
+    public void setItem() throws ExcepcionServiciosAlquiler{
+        this.item=sp.consultarItem(idItem); 
+    }
+
+    public Item getItem() {
+        return item;
     }
     
     

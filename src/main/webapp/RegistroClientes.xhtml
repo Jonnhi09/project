@@ -29,7 +29,7 @@
                         <p:resetInput target="registrado"/>
                     </p:commandButton>
                     <p:commandButton value="Detalles de cliente" action="RegistroClienteItem" update="registrado">
-                        <p:resetInput target="registrados"/>
+                        <p:resetInput target="registrado"/>
                     </p:commandButton>
                     <p:ajaxExceptionHandler type="java.lang.Exception" update="exceptioDialog" onexception="PF('exceptionDialog').show()" />
                     <p:dialog id="exceptionDialog" header="#{pfExceptionHandler.message}" widgetVar="exceptionDialog" height="500px">           

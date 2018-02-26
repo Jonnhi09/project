@@ -13,7 +13,7 @@ import java.util.List;
  */
 public abstract class ServiciosAlquiler {
 
-    private static ServiciosAlquiler instance = new ServiciosAlquilerItemsStub();
+    private static final ServiciosAlquiler instance = new ServiciosAlquilerItemsStub();
 
 
     public static ServiciosAlquiler getInstance() throws RuntimeException {
