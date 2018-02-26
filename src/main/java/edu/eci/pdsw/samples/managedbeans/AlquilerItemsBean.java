@@ -40,13 +40,8 @@ public class AlquilerItemsBean implements Serializable {
         return sp.consultarClientes();
     }
     
-    public void registrarCliente(){
-        try {
-            sp.registrarCliente(new Cliente(nombre, documento, telefono, direccion, email));
-        } catch (ExcepcionServiciosAlquiler ex) {
-            Logger.getLogger(AlquilerItemsBean.class.getName()).log(Level.SEVERE, null, ex);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Usuario ya registrado",ex.getMessage()));
-        }
+    public void registrarCliente() throws ExcepcionServiciosAlquiler{
+        sp.registrarCliente(new Cliente(nombre, documento, telefono, direccion, email));
     }
 
     public Cliente getSelected() {

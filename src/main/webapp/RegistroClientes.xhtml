@@ -6,7 +6,7 @@
     <h:head></h:head>
     <h:body>
         <h:form id="form">
-            <p:dataTable var="registrados" value="#{AlquilerItems.clientes}" selectionMode="single" selection="#{AlquilerItems.selected}" rowKey="#{registrados.documento}" id="registrado" scrollable="true">
+            <p:dataTable var="registrados" value="#{AlquilerItems.clientes}" selectionMode="single" selection="#{AlquilerItems.selected}" rowKey="#{registrados.documento}" id="registrado">
                 <p:column headerText="Model">
                     <f:facet name="header">
                         <h:outputText value="Registrados"/>
@@ -18,20 +18,25 @@
                     <p:inputText value="#{AlquilerItems.nombre}"/>
                     Documento:
                     <p:inputText value="#{AlquilerItems.documento}"/>
-                    Telefomo:
+                    Telefono:
                     <p:inputText value="#{AlquilerItems.telefono}"/>
                     Direccion:
                     <p:inputText value="#{AlquilerItems.direccion}"/>
                     Email:
-                    <p:inputText value="#{AlquilerItems.email}"/><br/>
+                    <p:inputText value="#{AlquilerItems.email}"/>
+                    <br/>
                     <p:commandButton value="Registrar cliente" actionListener="#{AlquilerItems.registrarCliente}" update="registrado">
                         <p:resetInput target="registrado"/>
                     </p:commandButton>
                     <p:commandButton value="Detalles de cliente" action="RegistroClienteItem" update="registrado">
-                        <p:resetInput target="registrado"/>
+                        <p:resetInput target="registrados"/>
                     </p:commandButton>
+                    <p:ajaxExceptionHandler type="java.lang.Exception" update="exceptioDialog" onexception="PF('exceptionDialog').show()" />
+                    <p:dialog id="exceptionDialog" header="#{pfExceptionHandler.message}" widgetVar="exceptionDialog" height="500px">           
+                    </p:dialog>
                 </f:facet>
             </p:dataTable>
+            
         </h:form>
     </h:body>
 </html>
