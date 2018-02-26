@@ -33,7 +33,7 @@ public class ServiciosAlquilerItemsStub extends ServiciosAlquiler implements Ser
     private final Map<Integer,Long> mapaPrestamosPorIdCliente;
     
    
-    public ServiciosAlquilerItemsStub() {
+    public ServiciosAlquilerItemsStub() throws ExcepcionServiciosAlquiler {
         clientes = new HashMap<>();
         itemsDisponibles = new HashMap<>();
         itemsrentados = new HashMap<>();
@@ -232,7 +232,7 @@ public class ServiciosAlquilerItemsStub extends ServiciosAlquiler implements Ser
     
     
     
-    private void poblar() {
+    private void poblar() throws ExcepcionServiciosAlquiler {
         
         TipoItem ti1=new TipoItem(1,"Video");
         TipoItem ti2=new TipoItem(2,"Juego");
@@ -274,6 +274,8 @@ public class ServiciosAlquilerItemsStub extends ServiciosAlquiler implements Ser
         clientes.put(c1.getDocumento(), c1);
         clientes.put(c2.getDocumento(), c2);
         clientes.put(c3.getDocumento(), c3);
+        
+        registrarAlquilerCliente(Date.valueOf(LocalDate.now()), 1026585664, i6, 5);
 
     }
 

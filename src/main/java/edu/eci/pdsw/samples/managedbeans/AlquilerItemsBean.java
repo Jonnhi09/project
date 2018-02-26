@@ -6,9 +6,14 @@
 package edu.eci.pdsw.samples.managedbeans;
 
 import edu.eci.pdsw.samples.entities.Cliente;
+import edu.eci.pdsw.samples.entities.Item;
+import edu.eci.pdsw.samples.entities.ItemRentado;
 import edu.eci.pdsw.samples.services.ExcepcionServiciosAlquiler;
 import edu.eci.pdsw.samples.services.ServiciosAlquiler;
 import java.io.Serializable;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,11 +32,18 @@ public class AlquilerItemsBean implements Serializable {
 
     ServiciosAlquiler sp = ServiciosAlquiler.getInstance();
     private Cliente selected;
+    private ArrayList<ItemRentado> rentados;
+    private ArrayList<Long> multas;
     private String direccion;
     private long documento;
     private String email;
     private String nombre;
     private String telefono;
+    private int idItem;
+    private int diasAlquiler;
+    private long costoAlquiler;
+    private Item item;
+    
 
     public AlquilerItemsBean() {
     }
@@ -42,6 +54,14 @@ public class AlquilerItemsBean implements Serializable {
     
     public void registrarCliente() throws ExcepcionServiciosAlquiler{
         sp.registrarCliente(new Cliente(nombre, documento, telefono, direccion, email));
+    }
+    
+    public void registrarAlquiler() throws ExcepcionServiciosAlquiler{
+        sp.registrarAlquilerCliente(Date.valueOf(LocalDate.now()), this.documento, this.item, this.diasAlquiler);
+    }
+    
+    public void setItem() throws ExcepcionServiciosAlquiler{
+        this.item=sp.consultarItem(idItem); 
     }
 
     public Cliente getSelected() {
@@ -92,7 +112,49 @@ public class AlquilerItemsBean implements Serializable {
         this.telefono = telefono;
     }
     
+    public void setSelectedRentados(){
+        this.rentados = this.selected.getRentados();
+    }
     
-    
+    public ArrayList<ItemRentado> getSelectedRentados(){
+        return rentados;
+    }
 
+    public ArrayList getMultas() throws ExcepcionServiciosAlquiler {
+        return multas;
+    }
+
+    public void setMultas() throws ExcepcionServiciosAlquiler {
+        setSelectedRentados();
+        for(ItemRentado i:this.rentados){
+            this.multas.add(sp.consultarMultaAlquiler(i.getItem().getId(), i.getFechafinrenta()));
+        }
+    }
+    
+    public int getIdItem() {
+        return idItem;
+    }
+
+    public void setIdItem(int idItem) {
+        this.idItem = idItem;
+    }
+
+    public int getDiasAlquiler() {
+        return diasAlquiler;
+    }
+
+    public void setDiasAlquiler(int diasAlquiler) {
+        this.diasAlquiler = diasAlquiler;
+    }
+
+    public long getCostoAlquiler() {
+        return costoAlquiler;
+    }
+
+    public void calcularCostoAlquiler() throws ExcepcionServiciosAlquiler {
+        setItem();
+        this.costoAlquiler = this.item.getTarifaxDia()*this.diasAlquiler;
+    }
+    
+    
 }

@@ -6,7 +6,40 @@
 
     <h:body>
         <h:body>
-            Hola
+            <h:form id="form">
+                <p:dataTable var="items" value="#{AlquilerItems.selected.rentados}" id="Titems">
+                    <p:column headerText="Items prestados">
+                        <f:facet name="header">
+                            <h:outputText value="Items prestados"/>
+                        </f:facet>
+                        <h:outputText value="#{items.item.nombre}"/>
+                    </p:column>
+                    
+                    <p:column headerText="Multa">
+                        <f:facet name="header">
+                            <h:outputText value="Multa"/>
+                        </f:facet>
+                        <h:outputText value="#{AlquilerItems.multas}"/>
+                    </p:column>
+                    <f:facet name="footer">
+                    Id Item:
+                    <p:inputText value="#{AlquilerItems.idItem}"/>
+                    Dias De Alquiler:
+                    <p:inputText value="#{AlquilerItems.diasAlquiler}"/>
+                    Costo Alquiler:
+                    <h:outputText value="#{AlquilerItems.costoAlquiler}"/>
+                    <p:commandButton value="Calcular alquiler" actionListener="#{AlquilerItems.calcularCostoAlquiler()}" update="Titems">
+                        <p:resetInput target="Titems"/>
+                    </p:commandButton><br/>
+                    <p:commandButton value="Registrar alquiler" actionListener="#{AlquilerItems.registrarAlquiler()}" update="Titems">
+                        <p:resetInput target="Titems"/>
+                    </p:commandButton>
+                    <p:commandButton value="Volver" action="RegistroClientes" update="Titems">
+                        <p:resetInput target="Titems"/>
+                    </p:commandButton>
+                </f:facet>
+                </p:dataTable>
+            </h:form>
         </h:body>
     </h:body>
 
