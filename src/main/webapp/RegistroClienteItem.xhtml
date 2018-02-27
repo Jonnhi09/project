@@ -7,39 +7,48 @@
     <h:body>
         <h:body>
             <h:form id="form">
-                <p:dataTable var="items" value="#{AlquilerItems.rentados}" id="Titems">
+                <p:dataTable var="items" value="#{AlquilerItems.selected.rentados}" id="Titems">
+                    <f:facet name="header">
+                        <h:outputText value="Cliente #{AlquilerItems.selected.nombre}"/>
+                    </f:facet>
                     <p:column headerText="Items prestados">
                         <f:facet name="header">
                             <h:outputText value="Items prestados"/>
                         </f:facet>
-                        <h:outputText value="#{items.}"/>
+                        <h:outputText value="#{items.item.nombre}"/>
                     </p:column>
-                    <p:column headerText="Multa">
+                    <p:column headerText="Multas">
                         <f:facet name="header">
-                            <h:outputText value="Multa"/>
+                            <h:outputText value="Multas"/>
                         </f:facet>
-                        <h:outputText value=""/>
+                        <h:outputText value="#{AlquilerItems.multasItems(items)}"/>
                     </p:column>
-                    <f:facet name="footer">
-                    Id Item:
-                    <p:inputText value="#{AlquilerItems.idItem}"/>
-                    Dias De Alquiler:
-                    <p:inputText value="#{AlquilerItems.diasAlquiler}"/>
-                    Costo Alquiler:
-                    <h:outputText value="#{AlquilerItems.costoAlquiler}"/>
-                    <p:commandButton value="Calcular alquiler" actionListener="#{AlquilerItems.calcularCostoAlquiler()}" update="Titems">
-                        <p:resetInput target="Titems"/>
-                    </p:commandButton><br/>
-                    <p:commandButton value="Registrar alquiler" actionListener="#{AlquilerItems.registrarAlquiler()}" update="Titems">
-                        <p:resetInput target="Titems"/>
-                    </p:commandButton>
-                    <p:commandButton value="Volver" action="RegistroClientes" update="Titems">
-                        <p:resetInput target="Titems"/>
-                    </p:commandButton>
-                </f:facet>
                 </p:dataTable>
+                <p:separator style="height:5px" />
+                <p:fieldset legend="Registrar alquiler" toggleable="true" toggleSpeed="500">
+                    <!--<p:ajax event="toggle" listener=""/>-->
+                    <p:layout style="min-width:400px;min-height:200px;">
+                        <p:layoutUnit position="west" resizable="true" size="600">
+                            <p:dataTable var="disponibles" value="#{AlquilerItems.itemsDisponibles}" id="TitemsDisponibles">
+                                <p:column headerText="Items disponibles">
+                                    <f:facet name="header">
+                                        <h:outputText value="Items disponibles"/>
+                                    </f:facet>
+                                    <h:outputText value="#{disponibles.nombre}"/>
+                                </p:column>
+                            </p:dataTable>
+                        </p:layoutUnit>
+                        <p:layoutUnit position="center" resizable="true">
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <p:outputLabel value="Dias de alquiler:"/>
+                                <p:inputText value=""/>
+                                <p:outputLabel value="Costo alquiler:"/>
+                                <p:outputLabel value=""/>
+                            </h:panelGrid>
+                        </p:layoutUnit>
+                    </p:layout>
+                </p:fieldset>
             </h:form>
         </h:body>
     </h:body>
-
 </html>

@@ -32,12 +32,9 @@ public class AlquilerItemsBean implements Serializable {
 
     ServiciosAlquiler sp = ServiciosAlquiler.getInstance();
     private Cliente selected;
-    private ArrayList<ItemRentado> rentados;
-    private ArrayList<Long> multas;
-    private String direccion;
     private Cliente nuevoCliente;
-    private int idItem;
-    private int diasAlquiler;
+    private Date fechaEntrega;
+    private Item nuevoItem;
     
 
     public AlquilerItemsBean() {
@@ -53,6 +50,14 @@ public class AlquilerItemsBean implements Serializable {
         nuevoCliente = new Cliente();
     }
 
+    public List<Item> getItemsDisponibles() {
+        return sp.consultarItemsDisponibles();
+    }
+    
+    public long multasItems(ItemRentado i) throws ExcepcionServiciosAlquiler{
+        return sp.consultarMultaAlquiler(i.getItem().getId(), Date.valueOf(LocalDate.now()));
+    }
+
     public Cliente getSelected() {
         return selected;
     }
@@ -61,27 +66,27 @@ public class AlquilerItemsBean implements Serializable {
         this.selected = selected;
     }
 
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
-
-    public ArrayList<ItemRentado> getRentados() {
-        return rentados;
-    }
-
-    public void setRentados(ArrayList<ItemRentado> rentados) {
-        this.rentados = rentados;
-    }
-
     public Cliente getNuevoCliente() {
         return nuevoCliente;
     }
 
     public void setNuevoCliente(Cliente nuevoCliente) {
         this.nuevoCliente = nuevoCliente;
-    }   
+    }
+
+    public Date getFechaEntrega() {
+        return fechaEntrega;
+    }
+
+    public void setFechaEntrega(Date fechaEntrega) {
+        this.fechaEntrega = fechaEntrega;
+    }
+
+    public Item getNuevoItem() {
+        return nuevoItem;
+    }
+
+    public void setNuevoItem(Item nuevoItem) {
+        this.nuevoItem = nuevoItem;
+    }
 }
