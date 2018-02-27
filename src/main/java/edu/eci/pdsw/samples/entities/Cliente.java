@@ -104,6 +104,12 @@ public class Cliente implements Serializable{
         this.rentados = Rentados;
     }
 
+    @Override
+    public String toString() {
+        return String.valueOf(this.getDocumento());
+    }
+    
+    
    
     
     

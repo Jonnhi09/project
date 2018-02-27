@@ -7,23 +7,50 @@
     <h:body>
         <h:form id="form">
             <p:dataTable var="registrados" value="#{AlquilerItems.clientes}" selectionMode="single" selection="#{AlquilerItems.selected}" rowKey="#{registrados.documento}" id="registrado">
+                <f:facet name="header">
+                        <h:outputText value="Clientes registrados"/>
+                    </f:facet>
                 <p:column headerText="Model">
                     <f:facet name="header">
-                        <h:outputText value="Registrados"/>
+                        <h:outputText value="Documento"/>
+                    </f:facet>
+                    <h:outputText value="#{registrados.documento}"/>
+                </p:column>
+                <p:column headerText="Model">
+                    <f:facet name="header">
+                        <h:outputText value="Nombre"/>
                     </f:facet>
                     <h:outputText value="#{registrados.nombre}"/>
                 </p:column>
+                <p:column headerText="Model">
+                    <f:facet name="header">
+                        <h:outputText value="Email"/>
+                    </f:facet>
+                    <h:outputText value="#{registrados.email}"/>
+                </p:column>
+                <p:column headerText="Model">
+                    <f:facet name="header">
+                        <h:outputText value="Telefono"/>
+                    </f:facet>
+                    <h:outputText value="#{registrados.telefono}"/>
+                </p:column>
+                <p:column headerText="Model">
+                    <f:facet name="header">
+                        <h:outputText value="Direccion"/>
+                    </f:facet>
+                    <h:outputText value="#{registrados.direccion}"/>
+                </p:column>
                 <f:facet name="footer">
                     Nombre:
-                    <p:inputText value="#{AlquilerItems.nombre}"/>
+                    <p:inputText value="#{AlquilerItems.nuevoCliente.nombre}"/>
                     Documento:
-                    <p:inputText value="#{AlquilerItems.documento}"/>
+                    <p:inputText value="#{AlquilerItems.nuevoCliente.documento}"/>
                     Telefono:
-                    <p:inputText value="#{AlquilerItems.telefono}"/>
+                    <p:inputText value="#{AlquilerItems.nuevoCliente.telefono}"/>
                     Direccion:
-                    <p:inputText value="#{AlquilerItems.direccion}"/>
+                    <p:inputText value="#{AlquilerItems.nuevoCliente.direccion}"/>
                     Email:
-                    <p:inputText value="#{AlquilerItems.email}"/>
+                    <p:inputText value="#{AlquilerItems.nuevoCliente.email}"/>
                     <br/>
                     <p:commandButton value="Registrar cliente" actionListener="#{AlquilerItems.registrarCliente}" update="registrado">
                         <p:resetInput target="registrado"/>
@@ -31,12 +58,14 @@
                     <p:commandButton value="Detalles de cliente" action="RegistroClienteItem" update="registrado">
                         <p:resetInput target="registrado"/>
                     </p:commandButton>
-                    <p:ajaxExceptionHandler type="java.lang.Exception" update="exceptioDialog" onexception="PF('exceptionDialog').show()" />
-                    <p:dialog id="exceptionDialog" header="#{pfExceptionHandler.message}" widgetVar="exceptionDialog" height="500px">           
+                    <p:ajaxExceptionHandler type="edu.eci.pdsw.samples.services.ExcepcionServiciosAlquiler" update="exceptionDialog" onexception="PF('exceptionDialog').show()" />
+                    <p:dialog id="exceptionDialog" header="Error" widgetVar="exceptionDialog" height="500px">         
+                        <h3> #{pfExceptionHandler.message}</h3>
+                        <p:button value="Aceptar" />
                     </p:dialog>
                 </f:facet>
             </p:dataTable>
-            
+
         </h:form>
     </h:body>
 </html>

@@ -35,10 +35,7 @@ public class AlquilerItemsBean implements Serializable {
     private ArrayList<ItemRentado> rentados;
     private ArrayList<Long> multas;
     private String direccion;
-    private long documento;
-    private String email;
-    private String nombre;
-    private String telefono;
+    private Cliente nuevoCliente;
     private int idItem;
     private int diasAlquiler;
     private long costoAlquiler;
@@ -53,11 +50,11 @@ public class AlquilerItemsBean implements Serializable {
     }
     
     public void registrarCliente() throws ExcepcionServiciosAlquiler{
-        sp.registrarCliente(new Cliente(nombre, documento, telefono, direccion, email));
+        sp.registrarCliente(nuevoCliente);
     }
     
     public void registrarAlquiler() throws ExcepcionServiciosAlquiler{
-        sp.registrarAlquilerCliente(Date.valueOf(LocalDate.now()), this.documento, this.item, this.diasAlquiler);
+        sp.registrarAlquilerCliente(Date.valueOf(LocalDate.now()), selected.getDocumento(), this.item, this.diasAlquiler);
     }
 
     public Cliente getSelected() {
@@ -74,38 +71,6 @@ public class AlquilerItemsBean implements Serializable {
 
     public void setDireccion(String direccion) {
         this.direccion = direccion;
-    }
-
-    public long getDocumento() {
-        return documento;
-    }
-
-    public void setDocumento(long documento) {
-        this.documento = documento;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
     }
     
     /*public void setRentados(){
@@ -161,6 +126,16 @@ public class AlquilerItemsBean implements Serializable {
     public Item getItem() {
         return item;
     }
+
+    public Cliente getNuevoCliente() {
+        return nuevoCliente;
+    }
+
+    public void setNuevoCliente(Cliente nuevoCliente) {
+        this.nuevoCliente = nuevoCliente;
+    }
+    
+    
     
     
 }
