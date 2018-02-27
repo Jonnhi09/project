@@ -8,8 +8,8 @@
         <h:form id="form">
             <p:dataTable var="registrados" value="#{AlquilerItems.clientes}" selectionMode="single" selection="#{AlquilerItems.selected}" rowKey="#{registrados.documento}" id="registrado">
                 <f:facet name="header">
-                        <h:outputText value="Clientes registrados"/>
-                    </f:facet>
+                    <h:outputText value="Clientes registrados"/>
+                </f:facet>
                 <p:column headerText="Model">
                     <f:facet name="header">
                         <h:outputText value="Documento"/>
@@ -40,32 +40,35 @@
                     </f:facet>
                     <h:outputText value="#{registrados.direccion}"/>
                 </p:column>
-                <f:facet name="footer">
-                    Nombre:
-                    <p:inputText value="#{AlquilerItems.nuevoCliente.nombre}"/>
-                    Documento:
-                    <p:inputText value="#{AlquilerItems.nuevoCliente.documento}"/>
-                    Telefono:
-                    <p:inputText value="#{AlquilerItems.nuevoCliente.telefono}"/>
-                    Direccion:
-                    <p:inputText value="#{AlquilerItems.nuevoCliente.direccion}"/>
-                    Email:
-                    <p:inputText value="#{AlquilerItems.nuevoCliente.email}"/>
-                    <br/>
-                    <p:commandButton value="Registrar cliente" actionListener="#{AlquilerItems.registrarCliente}" update="registrado">
-                        <p:resetInput target="registrado"/>
-                    </p:commandButton>
-                    <p:commandButton value="Detalles de cliente" action="RegistroClienteItem" update="registrado">
-                        <p:resetInput target="registrado"/>
-                    </p:commandButton>
+            </p:dataTable>
+
+            <center>
+                <p:panel header="Registrar nuevo cliente" id="nuevo">
+                    <p:panelGrid columns="2">
+                        <p:outputLabel value="Nombre:"/>
+                        <p:inputText value="#{AlquilerItems.nuevoCliente.nombre}"/>
+                        <p:outputLabel value="Documento:"/>
+                        <p:inputText value="#{AlquilerItems.nuevoCliente.documento}"/>
+                        <p:outputLabel value="Telefono:"/>
+                        <p:inputText value="#{AlquilerItems.nuevoCliente.telefono}"/>
+                        <p:outputLabel value="Direccion:"/>
+                        <p:inputText value="#{AlquilerItems.nuevoCliente.direccion}"/>
+                        <p:outputLabel value="Email:"/>
+                        <p:inputText value="#{AlquilerItems.nuevoCliente.email}"/>
+                        <p:commandButton value="Registrar cliente" actionListener="#{AlquilerItems.registrarCliente}" update="registrado nuevo">
+                            <p:resetInput target="nuevo"/>
+                        </p:commandButton>
+                        <p:commandButton value="Detalles de cliente" action="RegistroClienteItem" update="registrado nuevo">
+                            <p:resetInput target="nuevo"/>
+                        </p:commandButton>
+                    </p:panelGrid>
                     <p:ajaxExceptionHandler type="edu.eci.pdsw.samples.services.ExcepcionServiciosAlquiler" update="exceptionDialog" onexception="PF('exceptionDialog').show()" />
                     <p:dialog id="exceptionDialog" header="Error" widgetVar="exceptionDialog" height="500px">         
                         <h3> #{pfExceptionHandler.message}</h3>
                         <p:button value="Aceptar" />
                     </p:dialog>
-                </f:facet>
-            </p:dataTable>
-
+                </p:panel>
+            </center>
         </h:form>
     </h:body>
 </html>

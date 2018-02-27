@@ -43,6 +43,7 @@ public class AlquilerItemsBean implements Serializable {
     
 
     public AlquilerItemsBean() {
+        nuevoCliente = new Cliente();
     }
     
     public List<Cliente> getClientes() throws ExcepcionServiciosAlquiler {
@@ -51,6 +52,7 @@ public class AlquilerItemsBean implements Serializable {
     
     public void registrarCliente() throws ExcepcionServiciosAlquiler{
         sp.registrarCliente(nuevoCliente);
+        nuevoCliente = new Cliente();
     }
     
     public void registrarAlquiler() throws ExcepcionServiciosAlquiler{
