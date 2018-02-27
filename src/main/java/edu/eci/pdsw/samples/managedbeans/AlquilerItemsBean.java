@@ -38,8 +38,6 @@ public class AlquilerItemsBean implements Serializable {
     private Cliente nuevoCliente;
     private int idItem;
     private int diasAlquiler;
-    private long costoAlquiler;
-    private Item item;
     
 
     public AlquilerItemsBean() {
@@ -53,10 +51,6 @@ public class AlquilerItemsBean implements Serializable {
     public void registrarCliente() throws ExcepcionServiciosAlquiler{
         sp.registrarCliente(nuevoCliente);
         nuevoCliente = new Cliente();
-    }
-    
-    public void registrarAlquiler() throws ExcepcionServiciosAlquiler{
-        sp.registrarAlquilerCliente(Date.valueOf(LocalDate.now()), selected.getDocumento(), this.item, this.diasAlquiler);
     }
 
     public Cliente getSelected() {
@@ -74,59 +68,13 @@ public class AlquilerItemsBean implements Serializable {
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
-    
-    /*public void setRentados(){
-        this.rentados = this.selected.getRentados();
-    }*/
-    
-    public ArrayList<ItemRentado> getRentados(){
-        this.rentados = this.selected.getRentados();
-        return this.rentados;
+
+    public ArrayList<ItemRentado> getRentados() {
+        return rentados;
     }
 
-    public ArrayList getMultas() throws ExcepcionServiciosAlquiler {
-        for(ItemRentado i:this.rentados){
-            this.multas.add(sp.consultarMultaAlquiler(i.getItem().getId(), i.getFechafinrenta()));
-        }
-        return multas;
-    }
-
-    /*public void setMultas() throws ExcepcionServiciosAlquiler {
-        for(ItemRentado i:this.rentados){
-            this.multas.add(sp.consultarMultaAlquiler(i.getItem().getId(), i.getFechafinrenta()));
-        }
-    }*/
-    
-    public int getIdItem() {
-        return idItem;
-    }
-
-    public void setIdItem(int idItem) {
-        this.idItem = idItem;
-    }
-
-    public int getDiasAlquiler() {
-        return diasAlquiler;
-    }
-
-    public void setDiasAlquiler(int diasAlquiler) {
-        this.diasAlquiler = diasAlquiler;
-    }
-
-    public long getCostoAlquiler() {
-        return costoAlquiler;
-    }
-
-    public void calcularCostoAlquiler() throws ExcepcionServiciosAlquiler {
-        this.costoAlquiler = this.item.getTarifaxDia()*this.diasAlquiler;
-    }
-    
-    public void setItem() throws ExcepcionServiciosAlquiler{
-        this.item=sp.consultarItem(idItem); 
-    }
-
-    public Item getItem() {
-        return item;
+    public void setRentados(ArrayList<ItemRentado> rentados) {
+        this.rentados = rentados;
     }
 
     public Cliente getNuevoCliente() {
@@ -135,9 +83,5 @@ public class AlquilerItemsBean implements Serializable {
 
     public void setNuevoCliente(Cliente nuevoCliente) {
         this.nuevoCliente = nuevoCliente;
-    }
-    
-    
-    
-    
+    }   
 }
