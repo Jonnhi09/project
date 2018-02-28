@@ -42,7 +42,6 @@ public class ServiciosAlquilerItemsStub extends ServiciosAlquiler implements Ser
             poblar();
         } catch (Exception e) {
         }
-//        poblar();
     }
 
     @Override

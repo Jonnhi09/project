@@ -25,11 +25,11 @@
                     </p:column>
                 </p:dataTable>
                 <p:separator style="height:5px" />
-                <p:fieldset legend="Registrar alquiler" toggleable="true" toggleSpeed="500">
+                <p:fieldset legend="Registrar alquiler" collapsed="true" toggleable="true" toggleSpeed="500">
                     <!--<p:ajax event="toggle" listener=""/>-->
-                    <p:layout style="min-width:400px;min-height:200px;">
+                    <p:layout style="min-width:400px;min-height:300px;">
                         <p:layoutUnit position="west" resizable="true" size="600">
-                            <p:dataTable var="disponibles" value="#{AlquilerItems.itemsDisponibles}" id="TitemsDisponibles">
+                            <p:dataTable var="disponibles" value="#{AlquilerItems.itemsDisponibles}" selectionMode="single" selection="#{AlquilerItems.nuevoItemRentar}" rowKey="#{disponibles.id}" id="TitemsDisponibles">
                                 <p:column headerText="Items disponibles">
                                     <f:facet name="header">
                                         <h:outputText value="Items disponibles"/>
@@ -39,15 +39,30 @@
                             </p:dataTable>
                         </p:layoutUnit>
                         <p:layoutUnit position="center" resizable="true">
-                            <h:panelGrid columns="2" cellpadding="5">
+                            <h:panelGrid columns="2" cellpadding="5" title="Especificacion del alquiler" id="alquiler">
                                 <p:outputLabel value="Dias de alquiler:"/>
-                                <p:inputText value=""/>
+                                <p:inputText value="#{AlquilerItems.diasAlquiler}" required="true"/>
                                 <p:outputLabel value="Costo alquiler:"/>
-                                <p:outputLabel value=""/>
+                                <p:outputLabel value="#{AlquilerItems.costoAlquiler}"/>
+                                <p:commandButton value="Calcular alquiler" actionListener="#{AlquilerItems.consultarCostoAlquiler()}" update="Titems TitemsDisponibles alquiler">
+                                    <p:resetInput target="alquiler"/>
+                                </p:commandButton>
+                                <p:commandButton value="Alquilar" actionListener="#{AlquilerItems.alquilar()}" update="Titems TitemsDisponibles alquiler">
+                                    <p:resetInput target="alquiler"/>
+                                </p:commandButton>
                             </h:panelGrid>
                         </p:layoutUnit>
                     </p:layout>
                 </p:fieldset>
+                <p:separator/>
+                <center>
+                    <p:commandButton value="Volver" action="RegistroClientes.xhtml" update="Titems TitemsDisponibles alquiler"/>
+                </center>
+                <p:ajaxExceptionHandler type="edu.eci.pdsw.samples.services.ExcepcionServiciosAlquiler" update="exceptionDialog" onexception="PF('exceptionDialog').show()" />
+                <p:dialog id="exceptionDialog" header="Error" widgetVar="exceptionDialog" height="500px">         
+                    <h3> #{pfExceptionHandler.message}</h3>
+                    Cierre la ventana para continuar
+                </p:dialog>
             </h:form>
         </h:body>
     </h:body>
