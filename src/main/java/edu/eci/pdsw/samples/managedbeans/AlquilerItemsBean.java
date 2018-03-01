@@ -41,6 +41,7 @@ public class AlquilerItemsBean implements Serializable {
 
     public AlquilerItemsBean() {
         nuevoCliente = new Cliente();
+        nuevoCliente.setRentados(new ArrayList<ItemRentado>());
     }
     
     public List<Cliente> getClientes() throws ExcepcionServiciosAlquiler {
@@ -50,6 +51,7 @@ public class AlquilerItemsBean implements Serializable {
     public void registrarCliente() throws ExcepcionServiciosAlquiler{
         sp.registrarCliente(nuevoCliente);
         nuevoCliente = new Cliente();
+        nuevoCliente.setRentados(new ArrayList<ItemRentado>());
     }
 
     public List<Item> getItemsDisponibles() {
@@ -65,6 +67,7 @@ public class AlquilerItemsBean implements Serializable {
     }
     
     public void alquilar() throws ExcepcionServiciosAlquiler{
+        if(nuevoItemRentar==null)throw new ExcepcionServiciosAlquiler("Debe seleccionar un Item!");
         sp.registrarAlquilerCliente(Date.valueOf(LocalDate.now()), selected.getDocumento(), nuevoItemRentar, diasAlquiler);
     }
 
